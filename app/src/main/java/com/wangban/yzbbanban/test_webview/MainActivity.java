@@ -20,25 +20,28 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         webView = (WebView) findViewById(R.id.webView);
+        webView.loadUrl("http://m.xxxiao.com");
         webView.setWebViewClient(new WebViewClient() {
             @Override
-            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                view.loadUrl("http://m.xxxiao.com");
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
                 return true;
             }
         });
-        WebSettings settings = webView.getSettings();
-        settings.setJavaScriptEnabled(true);
-        webView.addJavascriptInterface(new Object() {
-            public void clickOnAndroid() {
-                handler.post(new Runnable() {
-                    public void run() {
-                        webView.loadUrl("javascript:wave()");
-                    }
-                });
-            }
-        }, "demo");
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+//        webView.addJavascriptInterface(new Object() {
+//            public void clickOnAndroid() {
+//                handler.post(new Runnable() {
+//                    public void run() {
+//                        webView.loadUrl("javascript:wave()");
+//                    }
+//                });
+//            }
+//        }, "demo");
 
+
+        webSettings.setUseWideViewPort(true);//设置此属性，可任意比例缩放 webSettings.setLoadWithOverviewMode(true);
     }
 
     @Override
