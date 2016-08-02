@@ -42,13 +42,17 @@ public class MainActivity extends AppCompatActivity {
 
 
         webSettings.setUseWideViewPort(true);//设置此属性，可任意比例缩放 webSettings.setLoadWithOverviewMode(true);
+        webView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         switch (keyCode) {
             case KeyEvent.KEYCODE_BACK:
-                webView.goBack();
+                if (webView.canGoBack()){
+                webView.goBack();}else {
+                    System.exit(0);
+                }
                 return true;
         }
         return super.onKeyDown(keyCode, event);
